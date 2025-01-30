@@ -1,30 +1,27 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    private void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
         int n = Integer.parseInt(br.readLine());
-        boolean [][] arr = new boolean[100][100];
-        int sum = 0;
-        for (int i = 0; i < n; i++) {
+        int[][] arr = new int[100][100];
+        int ans = 0;
+        while (n-->0) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
-            
-            for (int j = x; j < x + 10; j++) {
-                for (int k = y; k < y + 10; k++) {
-                    if (!arr[j][k]) {
-                        arr[j][k] = true;
-                        sum++;
-                    }
+            int r = Integer.parseInt(st.nextToken());
+            int c = Integer.parseInt(st.nextToken());
+            for (int i = r; i < r+10; i++) {
+                for (int j = c; j < c+10; j++) {
+                    if (++arr[i][j] == 1)
+                        ans++;
                 }
             }
         }
-        bw.write(String.valueOf(sum));
-        bw.flush();
-        bw.close();
+        System.out.println(ans);
+    }
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
     }
 }
