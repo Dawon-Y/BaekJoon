@@ -5,21 +5,19 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
+        
         int p = Integer.parseInt(st.nextToken());
-        int n = Integer.parseInt(st.nextToken());
+        int t = Integer.parseInt(st.nextToken());
 
-        int[] acc = new int[n]; 
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            acc[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < t; i++) {
+            queue.add(Integer.parseInt(st.nextToken()));
         }
 
-        Arrays.sort(acc);
         int count = 0;
-
-        while (count < n && p < 200) {
-            p += acc[count];
+        while (p < 200 && !queue.isEmpty()) {
+            p += queue.poll();
             count++;
         }
 
