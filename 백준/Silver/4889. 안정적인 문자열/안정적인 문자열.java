@@ -1,34 +1,35 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        String tmp;
-        int n = 1;
-        while(true) {
-            tmp = br.readLine();
-            if(tmp.charAt(0)=='-') break;
+        int num = 1;
 
-            int ans =0;
-            Stack<Character> st = new Stack<>();
+        while (true) {
+            String string = br.readLine();
+            if (string.contains("-")) break;
 
-            for (int i = 0; i < tmp.length(); i++) {
-                char c = tmp.charAt(i);
-                if(c=='{') {
-                    st.add(c);
-                }else {
-                    if(st.isEmpty()) {
-                        ans++;
-                        st.add('{');
-                    }else {
-                        st.pop();
+            int count = 0;
+            int input = 0;
+
+            for (char ch : string.toCharArray()) {
+                if (ch == '{') {
+                    input++;
+                } else {
+                    if (input > 0) {
+                        input--;
+                    } else {
+                        count++;
+                        input++;
                     }
                 }
             }
-            sb.append((n++) +". " + (ans+st.size()/2)+"\n" );
+
+            count += input / 2;
+            sb.append(num).append(". ").append(count).append("\n");
+            num++;
         }
-        System.out.println(sb);
+        System.out.print(sb.toString());
     }
 }
