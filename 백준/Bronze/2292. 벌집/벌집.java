@@ -5,20 +5,19 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int n = Integer.parseInt(br.readLine());
-        int round = 1;
-        int range = 2;
+        br.close();
 
-        if(n == 1){
-            System.out.print(1);
-        }
-
-        else {
-            while(range <= n){
-                range += 6 * round;
-                round++;
+        int room = 1;
+        int findroom = 1;
+        while(true){
+            if(findroom >= n){ //만약 입력받은 방번호가 해당 라인의 최대값보다 작은 거면 해당 방 최소 개수는 구한것!
+                break;
             }
-            System.out.print(round);
+            findroom += (room*6); //6의 거듭제곱 (1은 시작점임으로 +1을 해준다)
+            room++;
         }
+
+        System.out.println(room);
 
     }
 }
