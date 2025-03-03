@@ -1,50 +1,50 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int N = Math.abs(scanner.nextInt());    //약먹는 날짜
-        int K = Math.abs(scanner.nextInt());    //약먹는 텀
-        int breakfast1 = Math.abs(scanner.nextInt());//아침 시작
-        int breakfast2 = Math.abs(scanner.nextInt());//아침 끝
-        int lunch1 = Math.abs(scanner.nextInt());//점심 시작
-        int lunch2 = Math.abs(scanner.nextInt());//점심 끝
-        int dinner1 = Math.abs(scanner.nextInt());//저녁 시작
-        int dinner2 =Math.abs(scanner.nextInt());//저녁 끝
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int temp = 0;
-        boolean firstdaymeal=true;
-        for (int i = 0; i <N; i++) {
-            if(firstdaymeal){              //처음 시작시에만 실행됨
-                temp=breakfast2;
-                firstdaymeal=false;
-            }
-            else if(temp+K>=breakfast1){
-                temp=Math.min(temp+K,breakfast2);
-            }
-            else{
-                System.out.println("NO");
-                System.exit(0);
-            }
+        String[] input = br.readLine().split(" ");
+        long N = Long.parseLong(input[0]);
+        long K = Long.parseLong(input[1]);
 
-            if(temp+K>=lunch1){
-                temp=Math.min(temp+K,lunch2);
-            }
-            else{
-                System.out.println("NO");
-                System.exit(0);
-            }
-
-            if(temp+K>=dinner1){
-                temp=Math.min(temp+K,dinner2);
-            }
-            else{
-                System.out.println("NO");
-                System.exit(0);
-            }
-
-            temp-=1440;
+        String[] CInput = br.readLine().split(" ");
+        long[] C = new long[6];
+        for (int i = 0; i < 6; i++) {
+            C[i] = Long.parseLong(CInput[i]);
         }
+
+        long start = C[1];
+
+        for (int day = 0; day < N; day++) {
+            start += K;
+            if (start < C[2]) {
+                System.out.println("NO");
+                return;
+            }
+            start = Math.min(start, C[3]);
+            start += K;
+            if (start < C[4]) {
+                System.out.println("NO");
+                return;
+            }
+            start = Math.min(start, C[5]);
+            start += K;
+
+            if (day < N - 1) {
+                if (start < C[0] + 1440) {
+                    System.out.println("NO");
+                    return;
+                }
+                start = Math.min(start, C[1] + 1440);
+                for (int i = 0; i < 6; i++) {
+                    C[i] += 1440;
+                }
+            }
+        }
+
         System.out.println("YES");
     }
 }
